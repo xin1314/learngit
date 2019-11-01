@@ -16,17 +16,30 @@ cursor = conn.cursor()
 
 #
 # # select查询,cursor游标会不断往后走，到了最后一条信息后返回None
-cursor.execute('select * from user')  # 执行查询语句
-result1 = cursor.fetchone()  # 使用fetchone方法查询一条数据
-result2 = cursor.fetchmany(2)  # 使用fetchmany方法查询多条数据
-result3 = cursor.fetchall()  # 使用fetchall方法查询所有数据
+# cursor.execute('select * from user')  # 执行查询语句
+# result1 = cursor.fetchone()  # 使用fetchone方法查询一条数据
+# result2 = cursor.fetchmany(2)  # 使用fetchmany方法查询多条数据
+# result3 = cursor.fetchall()  # 使用fetchall方法查询所有数据
+# # print(result1)
 # print(result1)
-print(result1)
-print(result3)
-
-cursor.execute('select * from user where id > ?', (1, ))  # 执行查询语句
-result4 = cursor.fetchall()
-print(result4)
+# print(result3)
 #
+# cursor.execute('select * from user where id > ?', (1, ))  # 执行查询语句
+# result4 = cursor.fetchall()
+# print(result4)
+#
+#  修改用户数据信息
+# cursor.execute('update user set name = ? where id = ?', ('MR', 1))
+# conn.commit()  #  不加这句提交事务，则本次操作不会被保存
+# cursor.execute('select * from user')  # 执行查询语句
+# result3 = cursor.fetchall()  # 使用fetchall方法查询所有数据
+# print(result3)
+
+# 删除用户数据信息
+# cursor.execute('delete from user where id = ?', (2, ))
+# conn.commit()  #  不加这句提交事务，则本次操作不会被保存
+cursor.execute('select * from user')  # 执行查询语句
+result3 = cursor.fetchall()  # 使用fetchall方法查询所有数据
+print(result3)
 cursor.close()
 conn.close()
