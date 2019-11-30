@@ -1,0 +1,33 @@
+1、安装Erlang
+2、增加环境变量ERLANG_HOME=D:\Program Files\erl9.3(这里的目录是我的安装目录，你要换成自己的目录)
+3、修改环境变量Path，在原来的值后面加上“;%ERLANG_HOME%\bin”
+4、安装RabbitMQ
+5、增加环境变量RABBITMQ_HOME=D:\Program Files\RabbitMQ Server\rabbitmq_server-3.7.5(这里的目录是我的安装目录，你要换成自己的目录)
+6、修改环境变量Path，在原来的值后面加上“;%RABBITMQ_HOME%\sbin”
+7、通过命令“rabbitmqctl status”查看是否安装成功
+8、启动管理页面：运行命令rabbitmq-plugins enable rabbitmq_management 开启Web管理插件
+9、通过浏览器访问http://localhost:15672，并通过默认用户guest进行登录，密码也是guest
+10、重启服务器命令:net stop RabbitMQ && net start RabbitMQ
+11、用户及权限管理：
+查看已有用户及用户的角色：rabbitmqctl list_users  默认会存在一个来宾账号 guest
+新增一个用户：rabbitmqctl add_user username password
+给用户增加administrator角色：rabbitmqctl set_user_tags username administrator
+删除用户：rabbitmqctl delete_user username
+设置用户的权限：rabbitmqctl set_permission -p / xin ".*" ".*" ".*"
+
+默认情况下RabbitMQ服务的用户名和密码都是“guest”，这个账户是有限制的，默认只能通过localhost访问，远程访问权限受限，所以需要给它添加一个用户，并设置相应的访问权限。
+
+rabbitmq用户角色可分为五类：超级管理员, 监控者, 策略制定者, 普通管理者以及其他
+(1) 超级管理员(administrator)
+可登陆管理控制台(启用management plugin的情况下)，可查看所有的信息，并且可以对用户，策略(policy)进行操作。
+(2) 监控者(monitoring)
+可登陆管理控制台(启用management plugin的情况下)，同时可以查看rabbitmq节点的相关信息(进程数，内存使用情况，磁盘使用情况等)
+(3) 策略制定者(policymaker)
+可登陆管理控制台(启用management plugin的情况下), 同时可以对policy进行管理。
+(4) 普通管理者(management)
+仅可登陆管理控制台(启用management plugin的情况下)，无法看到节点信息，也无法对策略进行管理。
+(5) 其他的
+无法登陆管理控制台，通常就是普通的生产者和消费者
+
+
+查看队列中的消息： rabbitmqctl list_queues
